@@ -15,7 +15,10 @@
   },
   "dependencies": {
     "@nuxt/typescript-runtime": "^0.4.10",
-    "nuxt": "^2.13.0"
+    "@types/socket.io": "^2.1.8",
+    "nuxt": "^2.13.0",
+    "rand-token": "^1.0.1",
+    "socket.io": "^2.3.0"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^1.0.3",

@@ -1,13 +1,17 @@
 import http from 'http'
 import socketIO from 'socket.io'
+import { Module } from '@nuxt/types'
+import { ConnHandler } from './connHandler'
 
-export default function () {
-  this.nuxt.hook('render:before', (renderer) => {
+const ioModule: Module = function () {
+  let connHandler = new ConnHandler()
+
+  this.nuxt.hook('render:before', () => {
     const server = http.createServer(this.nuxt.renderer.app)
     const io = socketIO(server)
 
     // overwrite nuxt.server.listen()
-    this.nuxt.server.listen = (port, host) =>
+    this.nuxt.server.listen = (port: any, host: any) =>
       new Promise((resolve) =>
         server.listen(port || 3000, host || 'localhost', resolve)
       )
@@ -17,13 +21,9 @@ export default function () {
     // Add socket.io events
     const messages = []
     io.on('connection', (socket) => {
-      socket.on('last-messages', function (fn) {
-        fn(messages.slice(-50))
-      })
-      socket.on('send-message', function (message) {
-        messages.push(message)
-        socket.broadcast.emit('new-message', message)
-      })
+      connHandler.registerEvents
     })
   })
 }
+
+export default ioModule

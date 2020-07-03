@@ -81,7 +81,10 @@ export default {
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
    */
-  build: {},
+  build: {
+    // Tried this to fix Unexpected token error: (Didn't work)
+    // transpile: ['~/io'],
+  },
   // Environment variables
   env: {
     WS_URL: process.env.WS_URL || 'http://localhost:3000',
