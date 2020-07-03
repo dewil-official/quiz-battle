@@ -1,14 +1,13 @@
 import http from 'http'
 import socketIO from 'socket.io'
-import { Module } from '@nuxt/types'
 import { ConnHandler } from './connHandler'
+import { Module } from '@nuxt/types'
 
 const ioModule: Module = function () {
-  let connHandler = new ConnHandler()
-
   this.nuxt.hook('render:before', () => {
     const server = http.createServer(this.nuxt.renderer.app)
     const io = socketIO(server)
+    const connHandler = new ConnHandler()
 
     // overwrite nuxt.server.listen()
     this.nuxt.server.listen = (port: any, host: any) =>
@@ -19,9 +18,8 @@ const ioModule: Module = function () {
     this.nuxt.hook('close', () => new Promise(server.close))
 
     // Add socket.io events
-    const messages = []
     io.on('connection', (socket) => {
-      connHandler.registerEvents
+      connHandler.registerEvents(socket)
     })
   })
 }

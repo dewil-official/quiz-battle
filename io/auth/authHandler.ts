@@ -9,18 +9,20 @@ export class AuthHandler {
     this.authUtils = authUtils
   }
 
-  login(socket: Socket) {
+  login(socket: Socket, data: LoginData) {
     console.log('Received LOGIN socket event')
     try {
       let loginToken: LoginToken = this.authUtils.getTokenAndVerifyLoginData(
-        (socket.json as unknown) as LoginData
+        data
       )
       if (loginToken == null) throw Error
       if (loginToken.token == null || loginToken.token == '') throw Error
 
-      socket.emit('auth-token', loginToken)
+      socket.emit('auth-success', loginToken)
+      //      socket.emit('auth-success', loginToken)
     } catch (e) {
       socket.emit('auth-error')
+      //      socket.emit('auth-error')
     }
   }
 

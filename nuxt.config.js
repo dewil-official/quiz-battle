@@ -55,7 +55,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['~/io'],
+  modules: ['~/io/index'],
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
