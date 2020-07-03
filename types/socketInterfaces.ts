@@ -1,8 +1,8 @@
 export interface LoginData {
-  name: String
-  password: String
+  name: string
+  password: string
 }
 
 export interface LoginToken {
-  token: String
+  token: string
 }

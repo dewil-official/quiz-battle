@@ -1,7 +1,7 @@
 export interface User {
-  socketId?: String
-  name: String
-  password: String
+  socketId?: string
+  name: string
+  password: string
   isAdmin: boolean
-  authToken?: String
+  authToken?: string
 }
