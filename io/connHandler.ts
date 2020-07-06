@@ -1,8 +1,8 @@
 import socketIO, { Socket } from 'socket.io'
 import { User } from '~/types/user'
+import { AuthData } from '~/types/networking/auth'
 import { AuthHandler } from './auth/authHandler'
 import { AuthUtils } from './auth/authUtils'
-import { LoginData } from '~/types/socketInterfaces'
 let userFile = require('../data/users.json')
 
 export class ConnHandler {
@@ -15,7 +15,7 @@ export class ConnHandler {
   }
 
   registerEvents(socket: Socket) {
-    socket.on('auth-login', (data: LoginData) => {
+    socket.on('auth-login', (data: AuthData) => {
       this.authHandler.login(socket, data)
     })
   }

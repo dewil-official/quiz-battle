@@ -1,6 +1,6 @@
-import { LoginData, LoginToken } from '~/types/socketInterfaces'
 import { UserDatabase } from '~/types/localInterfaces'
 import { uid, suid } from 'rand-token'
+import { AuthData, AuthToken } from '~/types/networking/auth'
 
 export class AuthUtils {
   userData: UserDatabase
@@ -9,7 +9,7 @@ export class AuthUtils {
     this.userData = userData
   }
 
-  getTokenAndVerifyLoginData(loginData: LoginData): LoginToken {
+  getTokenAndVerifyLoginData(loginData: AuthData): AuthToken {
     if (isValidLogin(this.userData, loginData)) {
       let usedTokens = Array.from(
         this.userData.userList,
@@ -18,12 +18,12 @@ export class AuthUtils {
       )
       return { token: generateToken(usedTokens) }
     } else {
-      throw Error('Invalid Login Data.')
+      throw new Error('Invalid Login Data.')
     }
   }
 }
 
-function isValidLogin(userData: UserDatabase, loginData: LoginData): boolean {
+function isValidLogin(userData: UserDatabase, loginData: AuthData): boolean {
   let isValid = false
 
   userData.userList.forEach((user) => {
