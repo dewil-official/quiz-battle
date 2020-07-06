@@ -1,7 +1,10 @@
 import http from 'http'
 import socketIO from 'socket.io'
+import AuthIO from './auth/auth'
 
 export default function () {
+  const authIO = new AuthIO()
+
   this.nuxt.hook('render:before', (renderer) => {
     const server = http.createServer(this.nuxt.renderer.app)
     const io = socketIO(server)
@@ -15,15 +18,8 @@ export default function () {
     this.nuxt.hook('close', () => new Promise(server.close))
 
     // Add socket.io events
-    const messages = []
     io.on('connection', (socket) => {
-      socket.on('last-messages', function (fn) {
-        fn(messages.slice(-50))
-      })
-      socket.on('send-message', function (message) {
-        messages.push(message)
-        socket.broadcast.emit('new-message', message)
-      })
+      authIO.registerSocketHandlers(socket)
     })
   })
 }

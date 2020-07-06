@@ -37,7 +37,12 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [],
+  plugins: [
+    {
+      src: '~/plugins/socket.io.js',
+      ssr: false, // Disable Server-Side Rendering for WebSockets
+    },
+  ],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -47,9 +52,7 @@ export default {
    ** Nuxt.js dev-modules
    */
   buildModules: [
-    '@nuxt/typescript-build',
     // Doc: https://github.com/nuxt-community/stylelint-module
-    '@nuxtjs/stylelint-module',
     '@nuxtjs/vuetify',
   ],
   /*
