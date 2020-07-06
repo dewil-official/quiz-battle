@@ -39,8 +39,8 @@ export default {
    */
   plugins: [
     {
-      src: '~/plugins/socket.io-client',
-      ssr: false, // <-- this line is required
+      src: '~/plugins/socket.io.js',
+      ssr: false, // Disable Server-Side Rendering for WebSockets
     },
   ],
   /*
@@ -52,15 +52,13 @@ export default {
    ** Nuxt.js dev-modules
    */
   buildModules: [
-    '@nuxt/typescript-build',
     // Doc: https://github.com/nuxt-community/stylelint-module
-    '@nuxtjs/stylelint-module',
     '@nuxtjs/vuetify',
   ],
   /*
    ** Nuxt.js modules
    */
-  modules: ['~/io/index'],
+  modules: ['~/io'],
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
@@ -86,10 +84,7 @@ export default {
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
    */
-  build: {
-    // Tried this to fix Unexpected token error: (Didn't work)
-    // transpile: ['~/io'],
-  },
+  build: {},
   // Environment variables
   env: {
     WS_URL: process.env.WS_URL || 'http://localhost:3000',
