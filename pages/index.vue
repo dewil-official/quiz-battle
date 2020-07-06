@@ -21,6 +21,9 @@
 
 <script>
 export default {
+  mounted() {
+    this.$socket.client.emit('get_player_names')
+  },
   computed: {
     auth() {
       return this.$store.state.auth

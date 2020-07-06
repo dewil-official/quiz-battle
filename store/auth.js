@@ -4,6 +4,7 @@ export const state = () => ({
   status: authStatus.NONE,
   token: '',
   error: '',
+  playerNames: [],
 })
 
 export const mutations = {
@@ -14,5 +15,8 @@ export const mutations = {
   SOCKET_AUTH_ERROR(state, error) {
     state.status = authStatus.ERROR
     state.error = error
+  },
+  SOCKET_PLAYER_NAMES(state, playerNames) {
+    state.playerNames = playerNames
   },
 }
