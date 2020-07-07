@@ -1,5 +1,5 @@
 import http from 'http'
-import socketIO from 'socket.io'
+import socketIO, { Socket } from 'socket.io'
 import AuthIO from './auth/authIO'
 import AuthUtils from './auth/authUtils'
 import PlayersIO from './players/playersIO'
@@ -27,7 +27,7 @@ const ioModule: Module = function () {
     this.nuxt.hook('close', () => new Promise(server.close))
 
     // Add socket.io events
-    io.on('connection', (socket: WebSocket) => {
+    io.on('connection', (socket: Socket) => {
       authIO.registerSocketHandlers(socket)
       playersIO.registerSocketHandlers(socket)
       gameIO.registerSocketHandlers(socket)

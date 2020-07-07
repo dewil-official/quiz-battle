@@ -1,10 +1,12 @@
+import { Socket } from 'socket.io'
+
 let userFile = require('../../data/users.json')
 
 export default class PlayersIO {
-  registerSocketHandlers(socket) {
+  registerSocketHandlers(socket: Socket) {
     socket.on('get_player_names', () => {
       try {
-        let userNames = userFile.userList.map((user) => {
+        let userNames = userFile.userList.map((user: any) => {
           return user.name
         })
 
