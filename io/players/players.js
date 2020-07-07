@@ -8,6 +8,8 @@ export default class PlayersIO {
           return user.name
         })
 
+        console.log(userNames)
+
         socket.emit('player_names', userNames)
       } catch (e) {
         console.log('Your data/users.json file cannot be loaded.')

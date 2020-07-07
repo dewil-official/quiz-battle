@@ -2,10 +2,12 @@ import http from 'http'
 import socketIO from 'socket.io'
 import AuthIO from './auth/auth'
 import PlayersIO from './players/players'
+import GameIO from './game/gameIO'
 
 export default function () {
   const authIO = new AuthIO()
   const playersIO = new PlayersIO()
+  const gameIO = new GameIO()
 
   this.nuxt.hook('render:before', (renderer) => {
     const server = http.createServer(this.nuxt.renderer.app)
@@ -23,6 +25,7 @@ export default function () {
     io.on('connection', (socket) => {
       authIO.registerSocketHandlers(socket)
       playersIO.registerSocketHandlers(socket)
+      gameIO.registerSocketHandlers(socket)
     })
   })
 }

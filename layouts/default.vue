@@ -1,5 +1,8 @@
 <template>
   <v-app>
+    <v-app-bar absolute color="transparent" flat fixed app>
+      <v-toolbar-title>Quiz Battle ⚡</v-toolbar-title>
+    </v-app-bar>
     <v-main>
       <v-container>
         <nuxt />
