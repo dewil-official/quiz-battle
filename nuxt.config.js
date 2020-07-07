@@ -54,6 +54,7 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/stylelint-module
     '@nuxtjs/vuetify',
+    '@nuxt/typescript-build',
   ],
   /*
    ** Nuxt.js modules
