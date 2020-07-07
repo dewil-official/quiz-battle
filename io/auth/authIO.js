@@ -1,11 +1,9 @@
 //import socketIO from 'socket.io'
-import AuthUtils from './authUtils'
-
-let userFile = require('../../data/users.json')
+//import AuthUtils from './authUtils'
 
 export default class AuthIO {
-  constructor() {
-    this.authUtils = new AuthUtils(userFile)
+  constructor(authUtils) {
+    this.authUtils = authUtils
   }
 
   registerSocketHandlers(socket) {
@@ -14,9 +12,12 @@ export default class AuthIO {
       let token
       try {
         token = this.authUtils.loginUser(data)
-      } catch (e) {}
-      if (token) socket.emit('auth_success', token)
-      else socket.emit('auth_error')
+        socket.emit('auth_success', token)
+      } catch (e) {
+        console.log('Error:')
+        console.log(e.toString())
+        socket.emit('auth_error', e.message)
+      }
     })
   }
 }

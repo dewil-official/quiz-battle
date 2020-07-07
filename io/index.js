@@ -1,13 +1,17 @@
 import http from 'http'
 import socketIO from 'socket.io'
-import AuthIO from './auth/auth'
-import PlayersIO from './players/players'
+import AuthIO from './auth/authIO'
+import AuthUtils from './auth/authUtils'
+import PlayersIO from './players/playersIO'
 import GameIO from './game/gameIO'
 
+let userFile = require('../data/users.json')
+
 export default function () {
-  const authIO = new AuthIO()
+  const authUtils = new AuthUtils(userFile)
+  const authIO = new AuthIO(authUtils)
+  const gameIO = new GameIO(authUtils)
   const playersIO = new PlayersIO()
-  const gameIO = new GameIO()
 
   this.nuxt.hook('render:before', (renderer) => {
     const server = http.createServer(this.nuxt.renderer.app)

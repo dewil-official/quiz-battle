@@ -4,10 +4,8 @@ export const state = () => ({
 })
 
 export const mutations = {
-  SOCKET_SCORE_UPDATE(state, scoreboard) {
-    state.scoreboard = scoreboard
-  },
-  SOCKET_QUESTION_UPDATE(state, question) {
-    state.question = question
+  SOCKET_GAME_UPDATE(state, gameData) {
+    this.scoreboard = gameData.scoreboard
+    this.question = gameData.question
   },
 }

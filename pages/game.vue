@@ -12,5 +12,12 @@ export default {
       return this.$store.state.auth
     },
   },
+  mounted() {
+    if (this.authState.token) {
+      this.$socket.client.emit('get_game_state', this.authState.token)
+    } else {
+      this.$router.push('/')
+    }
+  },
 }
 </script>
