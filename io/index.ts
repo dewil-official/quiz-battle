@@ -5,14 +5,16 @@ import AuthUtils from './auth/authUtils'
 import PlayersIO from './players/playersIO'
 import GameIO from './game/gameIO'
 import { Module } from '@nuxt/types'
+import UserStore from './core/userStore'
 
 let userFile = require('../data/users.json')
 
 const ioModule: Module = function () {
-  const authUtils = new AuthUtils(userFile)
+  const userStore = new UserStore(userFile)
+  const authUtils = new AuthUtils(userStore)
   const authIO = new AuthIO(authUtils)
   const gameIO = new GameIO(authUtils)
-  const playersIO = new PlayersIO()
+  const playersIO = new PlayersIO(userStore)
 
   this.nuxt.hook('render:before', () => {
     const server = http.createServer(this.nuxt.renderer.app)

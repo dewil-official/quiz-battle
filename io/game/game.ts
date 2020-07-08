@@ -1,4 +1,7 @@
 export default class Game {
+  scoreboard: Array<Object>
+  question: Object
+
   constructor() {
     this.scoreboard = []
     this.question = {

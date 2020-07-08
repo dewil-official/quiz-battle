@@ -1,12 +1,14 @@
-//import socketIO from 'socket.io'
-//import AuthUtils from './authUtils'
+import AuthUtils from './authUtils'
+import { Socket } from 'socket.io'
 
 export default class AuthIO {
-  constructor(authUtils) {
+  authUtils: AuthUtils
+
+  constructor(authUtils: AuthUtils) {
     this.authUtils = authUtils
   }
 
-  registerSocketHandlers(socket) {
+  registerSocketHandlers(socket: Socket) {
     // "data" should be { name: "", password: "" }
     socket.on('auth_data', (data) => {
       let token

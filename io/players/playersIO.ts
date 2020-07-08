@@ -1,12 +1,17 @@
 import { Socket } from 'socket.io'
-
-let userFile = require('../../data/users.json')
+import UserStore from '../core/userStore'
 
 export default class PlayersIO {
+  userStore: UserStore
+
+  constructor(userStore: UserStore) {
+    this.userStore = userStore
+  }
+
   registerSocketHandlers(socket: Socket) {
     socket.on('get_player_names', () => {
       try {
-        let userNames = userFile.userList.map((user: any) => {
+        let userNames = this.userStore.users.map((user: any) => {
           return user.name
         })
 
@@ -14,7 +19,7 @@ export default class PlayersIO {
 
         socket.emit('player_names', userNames)
       } catch (e) {
-        console.log('Your data/users.json file cannot be loaded.')
+        throw Error('PlayersIO: There was an error getting the UserNames')
       }
     })
   }
