@@ -16,9 +16,15 @@ export default class AuthIO {
         token = this.authUtils.loginUser(data)
         socket.emit('auth_success', token)
       } catch (e) {
-        console.log('Error:')
         console.log(e.toString())
         socket.emit('auth_error', e.message)
+      }
+    })
+    socket.on('log_out', (authToken) => {
+      try {
+        this.authUtils.logoutUser(authToken)
+      } catch (e) {
+        console.log(e.toString())
       }
     })
   }

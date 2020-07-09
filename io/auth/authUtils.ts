@@ -23,6 +23,10 @@ export default class AuthUtils {
     }
   }
 
+  logoutUser(authToken: string) {
+    this.userStore.removeUser(authToken)
+  }
+
   isValidToken(authToken: string) {
     let activeTokens = getActiveTokens(this.userStore.users)
     return activeTokens.includes(authToken)

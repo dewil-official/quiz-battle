@@ -40,4 +40,10 @@ export default class UserStore {
       throw Error("Duplicate Usernames aren't allowed!")
     }
   }
+
+  removeUser(token: string) {
+    let userIndex = this.users.findIndex((u) => u.token == token)
+    this.users[userIndex].token = undefined
+    this.users[userIndex].id = undefined
+  }
 }
