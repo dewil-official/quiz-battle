@@ -11,6 +11,7 @@ export default class AuthUtils {
   }
 
   loginUser(loginData: LoginData) {
+    console.log('Logging in user', loginData.name)
     let user = this.userStore.getUserByName(loginData.name)
     if (user.password == loginData.password) {
       let usedTokens = getActiveTokens(this.userStore.users)

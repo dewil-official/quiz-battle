@@ -11,6 +11,7 @@
     "lib": ["ESNext", "ESNext.AsyncIterable", "DOM"],
     "esModuleInterop": true,
     "allowJs": true,
+    "checkJs": true,
     "sourceMap": true,
     "strict": true,
     "noEmit": true,
@@ -19,7 +20,7 @@
       "~/*": ["./*"],
       "@/*": ["./*"]
     },
-    "types": ["@types/node", "@nuxt/types"]
+    "types": ["@types/node", "@nuxt/types", "vuetify"]
   },
   "exclude": ["node_modules"]
 }

@@ -13,10 +13,10 @@
   "dependencies": {
     "@nuxt/typescript-runtime": "^1.0.0",
     "nuxt": "^2.13.0",
+    "nuxt-property-decorator": "^2.7.2",
     "rand-token": "^1.0.1",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
-    "vue-property-decorator": "^9.0.0",
     "vue-socket.io-extended": "^4.0.3"
   },
   "devDependencies": {

@@ -39,7 +39,7 @@ export default {
    */
   plugins: [
     {
-      src: '~/plugins/socket.io.js',
+      src: '~/plugins/socket.io',
       ssr: false, // Disable Server-Side Rendering for WebSockets
     },
   ],
@@ -85,7 +85,13 @@ export default {
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
    */
-  build: {},
+  build: {
+    babel: {
+      presets() {
+        return [['@nuxt/babel-preset-app', { loose: true }]]
+      },
+    },
+  },
   // Environment variables
   env: {
     WS_URL: process.env.WS_URL || 'http://localhost:3000',

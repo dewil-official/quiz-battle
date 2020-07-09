@@ -1,7 +1,7 @@
 import { AuthStatus } from '~/types/auth'
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
 
-@Module
+@Module({ stateFactory: true })
 export default class AuthStore extends VuexModule {
   status: AuthStatus = AuthStatus.NONE
   token: string = ''

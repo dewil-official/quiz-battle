@@ -3,7 +3,7 @@ import Scoreboard from '~/types/game/scoreboard'
 import Question from '~/types/game/question'
 import GameUpdate from '~/types/game/gameUpdate'
 
-@Module
+@Module({ stateFactory: true })
 export default class GameStore extends VuexModule {
   scoreboard: Scoreboard = { scores: [] }
   question: Question = { text: '', category: '', correctAnswer: '' }
