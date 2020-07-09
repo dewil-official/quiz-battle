@@ -25,6 +25,13 @@ export default class AuthStore extends VuexModule {
     this.playerNames = playerNames
   }
 
+  @Mutation
+  LOG_OUT() {
+    this.status = AuthStatus.NONE
+    this.token = ''
+    this.error = ''
+  }
+
   get isLoggedIn() {
     if (this.status == AuthStatus.SUCCESS) {
       return true

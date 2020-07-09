@@ -38,6 +38,7 @@ export default class DefaultLayout extends Vue {
 
   logOut() {
     this.$socket.client.emit('log_out', this.authToken)
+    this.$store.commit('auth/LOG_OUT')
     this.$router.replace('/')
   }
 }

@@ -14,7 +14,14 @@
         </v-chip>
       </v-chip-group>
       <h3 class="my-2">{{ text.password }}</h3>
-      <v-text-field label="Your Password" v-model="passwordField" type="password" clearable filled></v-text-field>
+      <v-text-field
+        label="Your Password"
+        v-model="passwordField"
+        type="password"
+        clearable
+        filled
+        @keyup.enter="loginButton()"
+      ></v-text-field>
       <v-alert v-if="error" type="error">
         {{ text.errWrongPassword }}
         Error: {{ error }}
@@ -27,11 +34,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn
-        color="primary"
-        @click="loginButton()"
-        v-on:keypress.enter="loginButton()"
-      >{{ text.button }}</v-btn>
+      <v-btn color="primary" @click="loginButton()">{{ text.button }}</v-btn>
     </v-card-actions>
   </v-card>
 </template>
