@@ -4,6 +4,13 @@ export default interface Question {
   correctAnswer: string
 }
 
+export enum QuestionType {
+  normal,
+  choice,
+  guess,
+  media,
+}
+
 export interface NormalQuestion extends Question {
   // This is just a nicer naming for the Question
   // interface atm. But there might be additional stuff

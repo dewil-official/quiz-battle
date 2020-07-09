@@ -1,14 +1,20 @@
 <template>
   <div>
-    <div v-if></div>
-    <p>Welcome to the game!</p>
+    <MasterView />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import MasterView from '~/components/pages/game/MasterView.vue'
+import PlayerView from '~/components/pages/game/PlayerView.vue'
 
-@Component
+@Component({
+  components: {
+    MasterView,
+    PlayerView,
+  },
+})
 export default class GamePage extends Vue {
   get authState() {
     return this.$store.state.auth
