@@ -24,4 +24,12 @@ export default class AuthStore extends VuexModule {
   SOCKET_PLAYER_NAMES(playerNames: string[]) {
     this.playerNames = playerNames
   }
+
+  get isLoggedIn() {
+    if (this.status == AuthStatus.SUCCESS) {
+      return true
+    } else {
+      return false
+    }
+  }
 }

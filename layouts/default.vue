@@ -29,9 +29,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
 @Component
 export default class DefaultLayout extends Vue {
   get isLoggedIn(): boolean {
-    return this.authToken ? true : false
-    // if (this.authToken) return true
-    // return false
+    return this.$store.getters['auth/isLoggedIn']
   }
 
   get authToken(): string {
