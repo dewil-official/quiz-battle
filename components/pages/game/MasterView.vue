@@ -39,7 +39,10 @@
       </v-col>
       <v-col cols="12" md="6" class="pa-0">
         <v-card class="ma-4 pa-4" elevation="12">
-          <h3>Live-Answers</h3>
+          <v-col>
+            <h3>Live-Answers</h3>
+            <PlayerAnswers class="mt-4" />
+          </v-col>
         </v-card>
       </v-col>
       <v-col cols="12" md="6" class="pa-0">
@@ -60,7 +63,13 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import { QuestionType } from '../../../types/game/question'
-@Component
+import PlayerAnswers from '@/components/pages/game/master/PlayerAnswers.vue'
+
+@Component({
+  components: {
+    PlayerAnswers,
+  },
+})
 export default class MasterView extends Vue {
   questionType: QuestionType = QuestionType.choice
 
