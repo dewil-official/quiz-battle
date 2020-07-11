@@ -1,7 +1,8 @@
 export default interface Question {
   text: string
-  category: string
   correctAnswer: string
+  type: QuestionType
+  showAnswer: boolean
 }
 
 export enum QuestionType {
@@ -31,7 +32,6 @@ export interface MediaQuestion extends Question {
 }
 
 export enum MediaType {
-  audio,
   image,
   youtube,
 }
