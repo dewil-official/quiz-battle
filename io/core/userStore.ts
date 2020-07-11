@@ -1,20 +1,20 @@
 import UserDatabase from '~/types/user/userDatabase'
-import User from '~/types/user/user'
+import User, { UserAuthData } from '~/types/concepts/user'
 
 export default class UserStore {
   users: Array<User>
 
-  constructor(userStore: UserDatabase) {
-    this.assertUniqueUsernames(userStore.users)
-    this.users = userStore.users
+  constructor(database: UserDatabase) {
+    this.assertUniqueUsernames(database.users)
+    this.users = this.mapDatabaseToUsers(database)
   }
 
   getUserByName(name: string): User {
-    let foundUser: User = {}
+    let foundUser: User | null = null
     this.users.forEach((user) => {
-      if (user.name == name) foundUser = user
+      if (user.authData.name == name) foundUser = user
     })
-    if (foundUser != {}) {
+    if (foundUser != null) {
       return foundUser
     } else {
       throw Error('User not found.')
@@ -22,13 +22,21 @@ export default class UserStore {
   }
 
   saveToken(name: string, token: string) {
-    let usersIndex = this.users.findIndex((u) => u.name == name)
+    let usersIndex = this.users.findIndex((u) => u.authData.name == name)
     let user = this.users[usersIndex]
-    user.token = token
+    user.authData.token = token
     this.users[usersIndex] = user
   }
 
-  assertUniqueUsernames(users: Array<User>) {
+  removeUser(token: string) {
+    let userIndex = this.users.findIndex((u) => u.authData.token == token)
+    this.users[userIndex].authData.token = undefined
+    this.users[userIndex].connectionData.socketId = null
+  }
+
+  // Methods for Initializing the UserStore
+
+  assertUniqueUsernames(users: Array<UserAuthData>) {
     let userNames: Array<string | undefined> = users.map((user) => {
       return user.name
     })
@@ -41,9 +49,9 @@ export default class UserStore {
     }
   }
 
-  removeUser(token: string) {
-    let userIndex = this.users.findIndex((u) => u.token == token)
-    this.users[userIndex].token = undefined
-    this.users[userIndex].id = undefined
+  mapDatabaseToUsers(db: UserDatabase): Array<User> {
+    return db.users.map((userAuthData) => {
+      return new User(userAuthData)
+    })
   }
 }

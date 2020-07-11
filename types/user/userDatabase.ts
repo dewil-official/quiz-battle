@@ -1,5 +1,5 @@
-import User from './user'
+import { UserAuthData } from '../concepts/user'
 
 export default interface UserDatabase {
-  users: Array<User>
+  users: Array<UserAuthData>
 }

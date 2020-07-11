@@ -1,6 +1,6 @@
 import { uid } from 'rand-token'
 import LoginData from '~/types/user/loginData'
-import User from '~/types/user/user'
+import User from '~/types/concepts/user'
 import UserStore from '../core/userStore'
 
 export default class AuthUtils {
@@ -13,10 +13,10 @@ export default class AuthUtils {
   loginUser(loginData: LoginData) {
     console.log('Logging in user', loginData.name)
     let user = this.userStore.getUserByName(loginData.name)
-    if (user.password == loginData.password) {
+    if (user.authData.password == loginData.password) {
       let usedTokens = getActiveTokens(this.userStore.users)
       let newToken = generateToken(usedTokens)
-      this.userStore.saveToken(user.name!, newToken)
+      this.userStore.saveToken(user.authData.name!, newToken)
       return newToken
     } else {
       throw new Error('Wrong Password.')
@@ -37,7 +37,7 @@ function getActiveTokens(userList: Array<User>) {
   return Array.from(
     userList,
     // TODO: Find a better way to only map if existant
-    (x) => x.token || ''
+    (x) => x.authData.token || ''
   )
 }
 

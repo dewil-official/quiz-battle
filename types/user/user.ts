@@ -1,4 +1,4 @@
-export default interface User {
+export default interface UserOld {
   id?: string
   name?: string
   password?: string

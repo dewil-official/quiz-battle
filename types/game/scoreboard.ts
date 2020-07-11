@@ -1,10 +1,10 @@
-import User from '../user/user'
+import UserOld from '../user/user'
 
 export default interface Scoreboard {
   scores: Array<UserScore>
 }
 
 export interface UserScore {
-  user: User
+  user: UserOld
   score: number
 }
