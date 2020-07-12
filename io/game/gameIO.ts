@@ -1,13 +1,17 @@
 import { errorTypes } from '../../types/errorTypes'
 import Game from './game'
+import { Socket } from 'socket.io'
 
 export default class GameIO {
-  constructor(authUtils) {
+  authUtils: any
+  game: Game
+
+  constructor(authUtils: any) {
     this.authUtils = authUtils
     this.game = new Game()
   }
 
-  registerSocketHandlers(socket) {
+  registerSocketHandlers(socket: Socket) {
     socket.on('get_game_state', (token) => {
       // 1. Verify Token
       if (this.authUtils.isValidToken(token) == false) {

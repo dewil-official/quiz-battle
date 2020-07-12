@@ -2,31 +2,39 @@
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6>
       <div v-if="auth.status == 'SUCCESS'">
-        <v-progress-circular
-          indeterminate
-          color="primary"
-        ></v-progress-circular>
+        <v-progress-circular indeterminate color="primary"></v-progress-circular>
       </div>
       <div v-else>
-        <LoginForm
-          :userNames="userNames"
-          v-on:loginButton="loginUser"
-          :error="auth.error"
-        />
+        <LoginForm :userNames="userNames" v-on:loginButton="loginUser" :error="auth.error" />
       </div>
     </v-flex>
   </v-layout>
 </template>
 
-<script>
-import LoginForm from '@/components/pages/login/LoginForm.vue'
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
+import LoginData from '../types/user/loginData'
+import LoginForm from '~/components/pages/login/LoginForm.vue'
 
-export default {
-  components: {
-    LoginForm,
-  },
+@Component({
+  components: { LoginForm },
+})
+export default class IndexPage extends Vue {
+  get auth() {
+    return this.$store.state.auth
+  }
+
+  get userNames() {
+    return this.$store.state.auth.playerNames
+  }
+
+  loginUser(authData: LoginData) {
+    console.log('Received loginButton from index.vue')
+    this.$socket.client.emit('auth_data', authData)
+  }
+
   mounted() {
-    this.$socket.$subscribe('auth_success', (authToken) => {
+    this.$socket.$subscribe('auth_success', (authToken: string) => {
       // 5 is just used here to avoid future updates destroying this.
       // I assume that the authToken will never be less than 6 chars long.
       if (authToken.length > 5) {
@@ -34,19 +42,6 @@ export default {
       }
     })
     this.$socket.client.emit('get_player_names')
-  },
-  computed: {
-    auth() {
-      return this.$store.state.auth
-    },
-    userNames() {
-      return this.$store.state.auth.playerNames
-    },
-  },
-  methods: {
-    loginUser(authData) {
-      this.$socket.client.emit('auth_data', authData)
-    },
-  },
+  }
 }
 </script>

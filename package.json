@@ -3,27 +3,34 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "export": "nuxt export",
+    "dev": "nuxt-ts",
+    "build": "nuxt-ts build",
+    "generate": "nuxt-ts generate",
+    "start": "nuxt-ts start",
     "serve": "nuxt serve",
     "test": "jest"
   },
   "dependencies": {
+    "@nuxt/typescript-runtime": "^1.0.0",
     "nuxt": "^2.13.0",
+    "nuxt-property-decorator": "^2.7.2",
     "rand-token": "^1.0.1",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
     "vue-socket.io-extended": "^4.0.3"
   },
   "devDependencies": {
+    "@nuxt/types": "^2.13.3",
+    "@nuxt/typescript-build": "^2.0.0",
     "@nuxtjs/vuetify": "^1.11.2",
+    "@types/socket.io": "^2.1.8",
     "@vue/test-utils": "^1.0.3",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^26.0.1",
+    "babel-plugin-transform-decorators": "^6.24.1",
     "jest": "^26.0.1",
     "prettier": "^2.0.5",
-    "vue-jest": "^3.0.4"
+    "vue-jest": "^3.0.4",
+    "vuex-module-decorators": "^0.17.0"
   }
 }
