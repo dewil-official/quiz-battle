@@ -1,6 +1,6 @@
-import { errorTypes } from '../../types/errorTypes'
 import Game from './game'
 import { Socket } from 'socket.io'
+import { AuthError } from '../../types/enums/errors/authErrors'
 
 export default class GameIO {
   authUtils: any
@@ -15,7 +15,7 @@ export default class GameIO {
     socket.on('get_game_state', (token) => {
       // 1. Verify Token
       if (this.authUtils.isValidToken(token) == false) {
-        socket.emit('auth_error', errorTypes.TOKEN_EXPIRED)
+        socket.emit('auth_error', AuthError.invalidToken)
         return
       }
       // 2. Get Game Data

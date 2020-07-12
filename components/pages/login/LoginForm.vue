@@ -41,7 +41,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Emit, Model } from 'nuxt-property-decorator'
-import LoginData from '../../../types/user/loginData'
+import LoginData from '~/types/interfaces/auth/loginData'
 
 @Component
 export default class LoginForm extends Vue {

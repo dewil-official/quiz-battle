@@ -10,7 +10,7 @@ import UserStore from './core/userStore'
 let userFile = require('../data/users.json')
 
 const ioModule: Module = function () {
-  const userStore = new UserStore(userFile)
+  const userStore = new UserStore(userFile.users)
   const authUtils = new AuthUtils(userStore)
   const authIO = new AuthIO(authUtils)
   const gameIO = new GameIO(authUtils)

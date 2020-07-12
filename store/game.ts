@@ -1,5 +1,4 @@
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
-import Scoreboard from '~/types/game/scoreboard'
 import Question, {
   QuestionType,
   ChoiceQuestion,
@@ -7,17 +6,16 @@ import Question, {
   GuessQuestion,
   MediaQuestion,
   MediaType,
-} from '~/types/game/question'
-import GameUpdate from '~/types/game/gameUpdate'
-import PlayerInfo from '~/types/game/playerInfo'
-import { JokerTypes } from '~/types/game/jokerTypes'
+} from '~/types/interfaces/game/questionTypes'
+import GameUpdate from '~/types/interfaces/game/gameUpdate'
+import PlayerInfo from '~/types/interfaces/game/playerInfo'
+import { JokerTypes } from '~/types/enums/game/jokerTypes'
 
 @Module({ stateFactory: true })
 // This store is received by all players, but different versions each
 // It depends on their permission leven and whether they have
 // activated a Joker that allows them to see other answers for example.
 export default class GameStore extends VuexModule {
-  scoreboard: Scoreboard = { scores: [] }
   players: PlayerInfo[] = [
     {
       name: 'David',
@@ -56,9 +54,6 @@ export default class GameStore extends VuexModule {
   SOCKET_GAME_UPDATE(gameUpdate: GameUpdate) {
     if (gameUpdate.question) {
       this.context.commit('UPDATE_QUESTION', gameUpdate.question)
-    }
-    if (gameUpdate.scoreboard) {
-      this.context.commit('UPDATE_SCOREBOARD', gameUpdate.scoreboard)
     }
   }
 }

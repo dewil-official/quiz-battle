@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { QuestionType } from '../../../types/game/question'
+import { QuestionType } from '../../../types/interfaces/game/questionTypes'
 import Waiting from '@/components/pages/game/master/Waiting.vue'
 import Intro from '@/components/pages/game/master/Intro.vue'
 import Question from '@/components/pages/game/master/Question.vue'
@@ -20,7 +20,7 @@ import AnswerEvaluation from '@/components/pages/game/master/AnswerEvaluation.vu
 import QuestionResults from '@/components/pages/game/master/QuestionResults.vue'
 import Paused from '@/components/pages/game/master/Paused.vue'
 import End from '@/components/pages/game/master/End.vue'
-import { GameStage } from '../../../types/game/gameStage'
+import { GameStage } from '../../../types/enums/game/gameStage'
 
 @Component({
   components: {

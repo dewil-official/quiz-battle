@@ -31,7 +31,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
-import Question, { ChoiceQuestion } from '../../../../../types/game/question'
+import { ChoiceQuestion } from '~/types/interfaces/game/questionTypes'
 @Component
 export default class ChoiceQuestionView extends Vue {
   @Prop({ default: {} }) question!: ChoiceQuestion

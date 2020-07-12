@@ -42,7 +42,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { QuestionType } from '~/types/game/question'
+import { QuestionType } from '~/types/interfaces/game/questionTypes'
 import PlayerList from '../shared/PlayerList.vue'
 import NormalQuestion from '../shared/questionTypes/NormalQuestion.vue'
 import ChoiceQuestion from '../shared/questionTypes/ChoiceQuestion.vue'

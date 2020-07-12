@@ -1,6 +1,6 @@
 import { Socket } from 'socket.io'
 import UserStore from '../core/userStore'
-import { User } from '~/types/core/user'
+import { User } from '~/types/classes/user'
 
 export default class PlayersIO {
   userStore: UserStore

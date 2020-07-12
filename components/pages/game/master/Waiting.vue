@@ -15,8 +15,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import PlayerInfo from '~/types/game/playerInfo'
-import { JokerTypes } from '~/types/game/jokerTypes'
+import PlayerInfo from '~/types/interfaces/game/playerInfo'
+import { JokerTypes } from '~/types/enums/game/jokerTypes'
 import PlayerList from '../shared/PlayerList.vue'
 @Component({
   components: {

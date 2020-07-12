@@ -51,8 +51,8 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
-import PlayerInfo from '~/types/game/playerInfo'
-import { JokerTypes } from '~/types/game/jokerTypes'
+import PlayerInfo from '~/types/interfaces/game/playerInfo'
+import { JokerTypes } from '~/types/enums/game/jokerTypes'
 
 @Component
 export default class PlayerList extends Vue {

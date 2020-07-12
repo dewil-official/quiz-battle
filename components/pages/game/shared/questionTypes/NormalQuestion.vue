@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
-import { NormalQuestion } from '~/types/game/question'
+import { NormalQuestion } from '~/types/interfaces/game/questionTypes'
 @Component
 export default class NormalQuestionView extends Vue {
   @Prop({ default: {} }) question!: NormalQuestion

@@ -17,11 +17,10 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
-import { MediaQuestion, MediaType } from '~/types/game/question'
+import { MediaQuestion, MediaType } from '~/types/interfaces/game/questionTypes'
 @Component
 export default class MediaQuestionView extends Vue {
   @Prop({ default: {} }) question!: MediaQuestion
-
   MediaType: any = MediaType
 }
 </script>

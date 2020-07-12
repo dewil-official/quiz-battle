@@ -1,4 +1,4 @@
-import { JokerTypes } from './jokerTypes'
+import { JokerTypes } from '../../enums/game/jokerTypes'
 
 export default interface PlayerInfo {
   name: string

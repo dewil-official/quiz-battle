@@ -1,13 +1,12 @@
-import UserDatabase from '~/types/user/userDatabase'
 // Weirdly, in this single file ~/ imports don't work for classes.
-import { User, UserAuthData } from '../../types/core/user'
+import { User, UserAuthData } from '../../types/classes/user'
 
 export default class UserStore {
   users: Array<User>
 
-  constructor(database: UserDatabase) {
-    this.assertUniqueUsernames(database.users)
-    this.users = this.mapDatabaseToUsers(database)
+  constructor(userLogins: Array<UserAuthData>) {
+    this.assertUniqueUsernames(userLogins)
+    this.users = this.mapDatabaseToUsers(userLogins)
   }
 
   getUserByName(name: string): User {
@@ -50,8 +49,8 @@ export default class UserStore {
     }
   }
 
-  mapDatabaseToUsers(db: UserDatabase): Array<User> {
-    return db.users.map((userAuthData) => {
+  mapDatabaseToUsers(userLogins: Array<UserAuthData>): Array<User> {
+    return userLogins.map((userAuthData) => {
       return new User(userAuthData)
     })
   }

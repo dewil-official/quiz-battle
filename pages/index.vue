@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import LoginData from '../types/user/loginData'
+import LoginData from '~/types/interfaces/auth/loginData'
 import LoginForm from '~/components/pages/login/LoginForm.vue'
 
 @Component({
