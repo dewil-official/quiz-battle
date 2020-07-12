@@ -39,7 +39,7 @@ export default {
    */
   plugins: [
     {
-      src: '~/plugins/socket.io.js',
+      src: '~/plugins/socket.io',
       ssr: false, // Disable Server-Side Rendering for WebSockets
     },
   ],
@@ -54,6 +54,7 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/stylelint-module
     '@nuxtjs/vuetify',
+    '@nuxt/typescript-build',
   ],
   /*
    ** Nuxt.js modules
@@ -69,10 +70,19 @@ export default {
       dark: true,
       themes: {
         dark: {
-          primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
+          primary: colors.lightBlue.base,
+          accent: colors.teal.darken3,
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
+          warning: colors.amber.base,
+          error: colors.deepOrange.accent4,
+          success: colors.green.accent3,
+        },
+        light: {
+          primary: colors.lightBlue.base,
+          accent: colors.teal.lighten3,
+          secondary: colors.amber.darken3,
+          info: colors.teal.darken1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
@@ -84,7 +94,13 @@ export default {
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
    */
-  build: {},
+  build: {
+    babel: {
+      presets() {
+        return [['@nuxt/babel-preset-app', { loose: true }]]
+      },
+    },
+  },
   // Environment variables
   env: {
     WS_URL: process.env.WS_URL || 'http://localhost:3000',

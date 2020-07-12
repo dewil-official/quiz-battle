@@ -1,5 +1,5 @@
 {
-  "userList": [
+  "users": [
     { "name": "GameMaster", "password": "GameMaster", "isAdmin": true },
     { "name": "User1", "password": "User1", "isAdmin": false },
     { "name": "User2", "password": "User2", "isAdmin": false },
