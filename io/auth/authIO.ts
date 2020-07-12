@@ -9,15 +9,14 @@ export default class AuthIO {
   }
 
   registerSocketHandlers(socket: Socket) {
-    // "data" should be { name: "", password: "" }
-    socket.on('login', (data) => {
+    socket.on('login', (loginData) => {
       let token
       try {
-        token = this.authUtils.loginUser(data)
-        socket.emit('auth_success', token)
+        token = this.authUtils.loginUser(loginData)
+        socket.emit('login_success', token)
       } catch (e) {
         console.log(e.toString())
-        socket.emit('auth_error', e.message)
+        socket.emit('login_error', e.message)
       }
     })
     socket.on('logout', (authToken) => {

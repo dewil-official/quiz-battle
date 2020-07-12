@@ -9,13 +9,13 @@ export default class AuthStore extends VuexModule {
   playerNames: string[] = []
 
   @Mutation
-  SOCKET_AUTH_SUCCESS(token: string) {
+  SOCKET_LOGIN_SUCCESS(token: string) {
     this.status = AuthStatus.SUCCESS
     this.token = token
   }
 
   @Mutation
-  SOCKET_AUTH_ERROR(error: string) {
+  SOCKET_LOGIN_ERROR(error: string) {
     this.status = AuthStatus.ERROR
     this.error = error
   }

@@ -34,7 +34,7 @@ export default class IndexPage extends Vue {
   }
 
   mounted() {
-    this.$socket.$subscribe('auth_success', (authToken: string) => {
+    this.$socket.$subscribe('login_success', (authToken: string) => {
       // 5 is just used here to avoid future updates destroying this.
       // I assume that the authToken will never be less than 6 chars long.
       if (authToken.length > 5) {

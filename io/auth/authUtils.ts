@@ -1,6 +1,6 @@
 import { uid } from 'rand-token'
 import LoginData from '~/types/user/loginData'
-import User from '~/types/concepts/user'
+import { User } from '~/types/core/user'
 import UserStore from '../core/userStore'
 
 export default class AuthUtils {
