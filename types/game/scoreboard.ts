@@ -1,4 +1,4 @@
-import UserOld from '../user/user'
+import UserOld from '../user/userOld'
 
 export default interface Scoreboard {
   scores: Array<UserScore>

@@ -1,5 +1,5 @@
 import UserDatabase from '~/types/user/userDatabase'
-import User, { UserAuthData } from '~/types/concepts/user'
+import { User, UserAuthData } from '../../types/core/user'
 
 export default class UserStore {
   users: Array<User>

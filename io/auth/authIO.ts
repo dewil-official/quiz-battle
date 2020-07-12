@@ -10,7 +10,7 @@ export default class AuthIO {
 
   registerSocketHandlers(socket: Socket) {
     // "data" should be { name: "", password: "" }
-    socket.on('auth_data', (data) => {
+    socket.on('login', (data) => {
       let token
       try {
         token = this.authUtils.loginUser(data)
@@ -20,7 +20,7 @@ export default class AuthIO {
         socket.emit('auth_error', e.message)
       }
     })
-    socket.on('log_out', (authToken) => {
+    socket.on('logout', (authToken) => {
       try {
         this.authUtils.logoutUser(authToken)
       } catch (e) {

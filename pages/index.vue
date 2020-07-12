@@ -28,9 +28,9 @@ export default class IndexPage extends Vue {
     return this.$store.state.auth.playerNames
   }
 
-  loginUser(authData: LoginData) {
+  loginUser(loginData: LoginData) {
     console.log('Received loginButton from index.vue')
-    this.$socket.client.emit('auth_data', authData)
+    this.$socket.client.emit('login', loginData)
   }
 
   mounted() {
