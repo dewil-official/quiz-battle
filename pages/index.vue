@@ -41,7 +41,11 @@ export default class IndexPage extends Vue {
         this.$router.push('/game')
       }
     })
-    this.$socket.client.emit('get_player_names')
+    if (this.auth.token) {
+      this.$router.push('/game')
+    } else {
+      this.$socket.client.emit('get_player_names')
+    }
   }
 }
 </script>

@@ -25,7 +25,7 @@ import PlayerList from '../shared/PlayerList.vue'
 })
 export default class Waiting extends Vue {
   get gameState() {
-    return this.$store.state.game
+    return this.$store.state.game.gameData
   }
 }
 </script>

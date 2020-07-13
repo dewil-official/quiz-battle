@@ -1,4 +1,4 @@
-export enum AuthError {
+export enum AuthErrorType {
   wrongName,
   wrongPassword,
   invalidToken,

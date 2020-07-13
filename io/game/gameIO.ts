@@ -1,27 +1,32 @@
 import Game from './game'
 import { Socket } from 'socket.io'
-import { AuthError } from '../../types/enums/errors/authErrors'
+import { AuthErrorType } from '../../types/enums/errors/authErrorType'
+import AuthUtils from '../auth/authUtils'
+import GameUpdate from '~/types/interfaces/game/gameUpdate'
 
 export default class GameIO {
-  authUtils: any
+  authUtils: AuthUtils
   game: Game
 
-  constructor(authUtils: any) {
+  constructor(authUtils: AuthUtils) {
     this.authUtils = authUtils
-    this.game = new Game()
+    this.game = new Game(authUtils)
   }
 
   registerSocketHandlers(socket: Socket) {
-    socket.on('get_game_state', (token) => {
+    socket.on('get_game_update', (token) => {
       // 1. Verify Token
       if (this.authUtils.isValidToken(token) == false) {
-        socket.emit('auth_error', AuthError.invalidToken)
+        socket.emit('auth_error', AuthErrorType.invalidToken)
         return
       }
       // 2. Get Game Data
-      let gameData = this.game.getGameData()
-      // 3. Send it to the client
-      socket.emit('game_update', gameData)
+      let gameUpdate: GameUpdate
+      try {
+        gameUpdate = this.game.getGameUpdateForUser(token)
+        // 3. Send it to the client
+        socket.emit('game_update', gameUpdate)
+      } catch (e) {}
     })
   }
 }

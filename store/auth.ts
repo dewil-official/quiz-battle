@@ -1,21 +1,24 @@
 import { UserAuthStatus } from '~/types/enums/auth/userAuthStatus'
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
+import { AuthErrorType } from '~/types/enums/errors/authErrorType'
+import AuthState from '~/types/interfaces/auth/authState'
 
 @Module({ stateFactory: true })
-export default class AuthStore extends VuexModule {
+export default class AuthStore extends VuexModule implements AuthState {
   status: UserAuthStatus = UserAuthStatus.NONE
   token: string = ''
-  error: string = ''
+  error: AuthErrorType | null = null
   playerNames: string[] = []
 
   @Mutation
   SOCKET_AUTH_SUCCESS(token: string) {
     this.status = UserAuthStatus.SUCCESS
     this.token = token
+    this.error = null
   }
 
   @Mutation
-  SOCKET_AUTH_ERROR(error: string) {
+  SOCKET_AUTH_ERROR(error: AuthErrorType | null) {
     this.status = UserAuthStatus.ERROR
     this.error = error
   }
@@ -29,7 +32,7 @@ export default class AuthStore extends VuexModule {
   LOG_OUT() {
     this.status = UserAuthStatus.NONE
     this.token = ''
-    this.error = ''
+    this.error = null
   }
 
   get isLoggedIn() {

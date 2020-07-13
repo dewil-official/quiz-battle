@@ -21,6 +21,19 @@ export default class UserStore {
     }
   }
 
+  getUserByToken(token: string): User {
+    let foundUser: User | null = null
+    if (token == null) throw Error('Invalid Token. (Null)')
+    this.users.forEach((user) => {
+      if (user.authData.token == token) foundUser = user
+    })
+    if (foundUser != null) {
+      return foundUser
+    } else {
+      throw Error('User not found.')
+    }
+  }
+
   saveToken(name: string, token: string) {
     let usersIndex = this.users.findIndex((u) => u.authData.name == name)
     let user = this.users[usersIndex]

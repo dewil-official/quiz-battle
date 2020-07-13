@@ -28,6 +28,7 @@ export interface UserAuthData {
   name: string
   password: string
   token?: string
+  isAdmin?: boolean
 }
 
 export interface UserConnectionData {

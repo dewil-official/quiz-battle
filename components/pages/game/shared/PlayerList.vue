@@ -76,7 +76,8 @@ export default class PlayerList extends Vue {
 
   isActiveJoker(player: PlayerInfo, joker: JokerTypes, index: number): boolean {
     let playerIndex = this.players.indexOf(player)
-    let jokerIndex = this.players[playerIndex].jokers.indexOf(joker)
+    if (!this.players[playerIndex].jokers) return false
+    let jokerIndex = this.players[playerIndex].jokers!.indexOf(joker)
     let isActive = joker == this.players[playerIndex].activeJoker
     return isActive ? jokerIndex == index : false
   }

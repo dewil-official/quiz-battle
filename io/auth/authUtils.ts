@@ -31,6 +31,17 @@ export default class AuthUtils {
     let activeTokens = getActiveTokens(this.userStore.users)
     return activeTokens.includes(authToken)
   }
+
+  isAdmin(authToken: string) {
+    let user = this.userStore.getUserByToken(authToken)
+    if (user.authData.isAdmin) return true
+    return false
+  }
+
+  getName(authToken: string) {
+    let user = this.userStore.getUserByToken(authToken)
+    return user.authData.name
+  }
 }
 
 function getActiveTokens(userList: Array<User>) {

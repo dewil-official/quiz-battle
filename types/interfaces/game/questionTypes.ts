@@ -1,6 +1,6 @@
 export default interface Question {
   text: string
-  correctAnswer: string
+  correctAnswer: string | null
   type: QuestionType
   showAnswer: boolean
 }
