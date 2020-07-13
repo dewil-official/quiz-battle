@@ -42,6 +42,22 @@ export default class AuthUtils {
     let user = this.userStore.getUserByToken(authToken)
     return user.authData.name
   }
+  removeSocket(socketId: string) {
+    this.userStore.users.forEach((user) => {
+      if (user.connectionData.socketId == socketId) {
+        user.connectionData.socketId = null
+        console.log('Removed socketId from user', user.authData.name)
+      }
+    })
+  }
+  setSocketId(socketId: string, token: string) {
+    this.userStore.users.forEach((user) => {
+      if (user.authData.token == token) {
+        user.connectionData.socketId = socketId
+        console.log('Added socketId to user', user.authData.name)
+      }
+    })
+  }
 }
 
 function getActiveTokens(userList: Array<User>) {
