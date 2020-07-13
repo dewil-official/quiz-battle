@@ -1,16 +1,20 @@
 import Game from './game'
-import { Socket } from 'socket.io'
+import { Socket, Server } from 'socket.io'
 import { AuthErrorType } from '../../types/enums/errors/authErrorType'
 import AuthUtils from '../auth/authUtils'
 import GameUpdate from '~/types/interfaces/game/gameUpdate'
+import { UpdateTarget } from '~/types/enums/game/sendTarget'
+import { User } from '~/types/classes/user'
 
 export default class GameIO {
   authUtils: AuthUtils
   game: Game
+  io: Server
 
-  constructor(authUtils: AuthUtils) {
+  constructor(authUtils: AuthUtils, io: Server) {
     this.authUtils = authUtils
     this.game = new Game(authUtils)
+    this.io = io
   }
 
   registerSocketHandlers(socket: Socket) {
@@ -28,5 +32,22 @@ export default class GameIO {
         socket.emit('game_update', gameUpdate)
       } catch (e) {}
     })
+  }
+
+  sendGameUpdate(target: UpdateTarget) {
+    if (target == UpdateTarget.everybody) {
+      this.authUtils.forEachConnected((user: User) => {
+        let gameUpdate: GameUpdate = this.game.getGameUpdateForUser(
+          user.authData.token!
+        )
+        this.io
+          .to(user.connectionData.socketId!)
+          .emit('game_update', gameUpdate)
+      })
+    } else if (target == UpdateTarget.adminsAndSpies) {
+      // TODO: Implement
+    } else if (target == UpdateTarget.userAndAdmin) {
+      // TODO: Implement
+    }
   }
 }

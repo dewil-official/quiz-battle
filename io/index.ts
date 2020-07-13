@@ -10,16 +10,15 @@ import UserStore from './core/userStore'
 let userFile = require('../data/users.json')
 
 const ioModule: Module = function () {
+  const server = http.createServer(this.nuxt.renderer.app)
+  const io = socketIO(server)
   const userStore = new UserStore(userFile.users)
   const authUtils = new AuthUtils(userStore)
   const authIO = new AuthIO(authUtils)
-  const gameIO = new GameIO(authUtils)
+  const gameIO = new GameIO(authUtils, io)
   const playersIO = new PlayersIO(userStore)
 
   this.nuxt.hook('render:before', () => {
-    const server = http.createServer(this.nuxt.renderer.app)
-    const io = socketIO(server)
-
     // overwrite nuxt.server.listen()
     this.nuxt.server.listen = (port: any, host: any) =>
       new Promise((resolve) =>

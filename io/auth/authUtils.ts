@@ -58,6 +58,13 @@ export default class AuthUtils {
       }
     })
   }
+  forEachConnected(callback: (user: User) => any) {
+    this.userStore.users.forEach((user) => {
+      if (user.connectionData.socketId) {
+        callback(user)
+      }
+    })
+  }
 }
 
 function getActiveTokens(userList: Array<User>) {
