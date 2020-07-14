@@ -1,4 +1,4 @@
-import GameUpdate from '~/types/interfaces/game/gameUpdate'
+import GameUpdate, { GameData } from '~/types/interfaces/game/gameUpdate'
 import AuthUtils from '../auth/authUtils'
 import { JokerTypes } from '../../types/enums/game/jokerTypes'
 import PlayerInfo from '~/types/interfaces/game/playerInfo'
@@ -7,15 +7,15 @@ import { testQuestionDB } from '../../data/questionDB'
 import Question from '../../types/interfaces/game/questionTypes'
 
 export default class Game {
-  gameState: GameUpdate = {}
+  gameState: GameData
   authUtils: AuthUtils
   questionDB: Array<Question> = testQuestionDB
 
   constructor(authUtils: AuthUtils) {
     this.authUtils = authUtils
     this.gameState = testGameState
-    this.gameState.question! = this.questionDB[0]
     this.gameState.gameInfo!.questionCount = this.questionDB.length
+    this.loadQuestion()
   }
 
   getGameUpdateForUser(token: string): GameUpdate {
@@ -27,6 +27,29 @@ export default class Game {
     gameUpdate.question = this.getQuestion(isAdmin)
 
     return gameUpdate
+  }
+
+  lastQuestion() {
+    if (this.gameState.gameInfo.questionNr > 0) {
+      this.gameState.gameInfo.questionNr--
+      this.loadQuestion()
+    }
+  }
+
+  nextQuestion() {
+    if (
+      this.gameState.gameInfo.questionCount >
+      this.gameState.gameInfo.questionNr + 1
+    ) {
+      this.gameState.gameInfo.questionNr++
+      this.loadQuestion()
+    }
+  }
+
+  private loadQuestion() {
+    this.gameState.question = this.questionDB[
+      this.gameState.gameInfo.questionNr
+    ]
   }
 
   private getQuestion(isAdmin: boolean) {
@@ -56,7 +79,7 @@ export default class Game {
     }
     // Assign the list
     if (hasSpyJoker) {
-      playerList = this.gameState.players!.map((player) => {
+      playerList = this.gameState.players.map((player) => {
         return {
           name: player.name,
           score: player.score,
@@ -64,9 +87,9 @@ export default class Game {
         }
       })
     } else if (isAdmin) {
-      playerList = this.gameState.players!
+      playerList = this.gameState.players
     } else {
-      playerList = this.gameState.players!.map((player) => {
+      playerList = this.gameState.players.map((player) => {
         return {
           name: player.name,
           score: player.score,

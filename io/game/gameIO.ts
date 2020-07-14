@@ -3,7 +3,7 @@ import { Socket, Server } from 'socket.io'
 import { AuthErrorType } from '../../types/enums/errors/authErrorType'
 import AuthUtils from '../auth/authUtils'
 import GameUpdate from '~/types/interfaces/game/gameUpdate'
-import { UpdateTarget } from '~/types/enums/game/sendTarget'
+import { UpdateTarget } from '../../types/enums/game/sendTarget'
 import { User } from '~/types/classes/user'
 
 export default class GameIO {
@@ -31,6 +31,20 @@ export default class GameIO {
         // 3. Send it to the client
         socket.emit('game_update', gameUpdate)
       } catch (e) {}
+    })
+
+    socket.on('last_question', (token) => {
+      if (this.authUtils.isAdmin(token)) {
+        this.game.lastQuestion()
+        this.sendGameUpdate(UpdateTarget.everybody)
+      }
+    })
+
+    socket.on('next_question', (token) => {
+      if (this.authUtils.isAdmin(token)) {
+        this.game.nextQuestion()
+        this.sendGameUpdate(UpdateTarget.everybody)
+      }
     })
   }
 
