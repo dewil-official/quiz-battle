@@ -1,8 +1,7 @@
 {
   "users": [
     { "name": "GameMaster", "password": "GameMaster", "isAdmin": true },
-    { "name": "User1", "password": "User1", "isAdmin": false },
-    { "name": "User2", "password": "User2", "isAdmin": false },
-    { "name": "User3", "password": "User3", "isAdmin": false }
+    { "name": "Ceddy", "password": "Ceddy", "isAdmin": false },
+    { "name": "Felix", "password": "Felix", "isAdmin": false }
   ]
 }

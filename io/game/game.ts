@@ -5,6 +5,11 @@ import PlayerInfo from '~/types/interfaces/game/playerInfo'
 import { testGameState } from '../../data/gameState'
 import { testQuestionDB } from '../../data/questionDB'
 import Question from '../../types/interfaces/game/questionTypes'
+import ApprovedAnswers, {
+  AnswerApproval,
+} from '~/types/interfaces/master/approvedAnswers'
+import { QuestionResults } from '~/types/interfaces/game/gameInfo'
+import { GameStage } from '../../types/enums/game/gameStage'
 
 export default class Game {
   gameState: GameData
@@ -44,6 +49,47 @@ export default class Game {
       this.gameState.gameInfo.questionNr++
       this.loadQuestion()
     }
+  }
+
+  applyQuestionResults(approvals: ApprovedAnswers) {
+    // 1. Convert 'approvals' to 'questionResults' in GameInfo.
+    //   - for each user: save the old store.
+    //   - for each user: calc the score, and apply it.
+    let questionResults: QuestionResults = []
+    approvals.forEach((userApproval: AnswerApproval) => {
+      console.log('Seaching for user:', userApproval.name)
+      let user = this.authUtils.userStore.getUserByName(userApproval.name)
+      questionResults.push({
+        name: userApproval.name,
+        oldScore: user.gameData.score,
+        usedJoker: user.gameData.activeJoker,
+        isCorrect: userApproval.isCorrect,
+      })
+      let userIndex = this.authUtils.userStore.users.findIndex((user) => {
+        return user.authData.name == userApproval.name
+      })
+      let jokerIndex = this.authUtils.userStore.users[
+        userIndex
+      ].gameData.jokers.findIndex((joker) => {
+        joker == user.gameData.activeJoker
+      })
+      // Apply the changes to the DB
+      this.authUtils.userStore.users[userIndex].gameData.score = this.calcScore(
+        user.gameData.score,
+        userApproval.isCorrect,
+        user.gameData.activeJoker == JokerTypes.x3 ? true : false
+      )
+      this.authUtils.userStore.users[userIndex].gameData.activeJoker = null
+      this.authUtils.userStore.users[userIndex].gameData.jokers.splice(
+        jokerIndex,
+        1
+      )
+      this.authUtils.userStore.users[userIndex].gameData.answer = ''
+      this.authUtils.userStore.users[userIndex].gameData.isDone = false
+    })
+    // 2. Forward the game to questionResults stage.
+    this.gameState.gameInfo.gameStage = GameStage.questionResults
+    this.gameState.question.showAnswer = true
   }
 
   private loadQuestion() {
@@ -103,5 +149,15 @@ export default class Game {
       playerList[playerIndex] = ownInfo
     }
     return playerList
+  }
+
+  private calcScore(
+    oldScore: number,
+    isCorrect: boolean,
+    hasX3Joker: boolean
+  ): number {
+    if (!isCorrect) return oldScore
+    if (hasX3Joker) return oldScore + 3
+    return oldScore + 1
   }
 }

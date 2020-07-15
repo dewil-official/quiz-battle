@@ -5,6 +5,7 @@ import AuthUtils from '../auth/authUtils'
 import GameUpdate from '~/types/interfaces/game/gameUpdate'
 import { UpdateTarget } from '../../types/enums/game/sendTarget'
 import { User } from '~/types/classes/user'
+import ApprovedAnswers from '~/types/interfaces/master/approvedAnswers'
 
 export default class GameIO {
   authUtils: AuthUtils
@@ -46,6 +47,16 @@ export default class GameIO {
         this.sendGameUpdate(UpdateTarget.everybody)
       }
     })
+
+    socket.on(
+      'approve_answers',
+      (authToken: string, approvals: ApprovedAnswers) => {
+        if (this.authUtils.isAdmin(authToken)) {
+          this.game.applyQuestionResults(approvals)
+          this.sendGameUpdate(UpdateTarget.everybody)
+        }
+      }
+    )
   }
 
   sendGameUpdate(target: UpdateTarget) {

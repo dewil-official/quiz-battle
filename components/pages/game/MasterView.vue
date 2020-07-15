@@ -3,7 +3,7 @@
     <Waiting v-if="gameStage == GameStage.waiting" />
     <Intro v-if="gameStage == GameStage.intro" />
     <Question v-if="gameStage == GameStage.question" :gameData="gameData" />
-    <AnswerEvaluation v-if="gameStage == GameStage.answerEvaluation" />
+    <AnswerEvaluation v-if="gameStage == GameStage.answerEvaluation" :gameData="gameData" />
     <QuestionResults v-if="gameStage == GameStage.questionResults" :gameData="gameData" />
     <Paused v-if="gameStage == GameStage.paused" />
     <End v-if="gameStage == GameStage.end" />

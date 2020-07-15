@@ -1,3 +1,5 @@
+import { JokerTypes } from '../enums/game/jokerTypes'
+
 export class User {
   authData: UserAuthData
   connectionData: UserConnectionData
@@ -10,6 +12,10 @@ export class User {
     }
     this.gameData = {
       answer: '',
+      score: 0,
+      jokers: [],
+      activeJoker: null,
+      isDone: false,
     }
   }
 
@@ -37,4 +43,8 @@ export interface UserConnectionData {
 
 export interface UserGameData {
   answer: string
+  score: number
+  jokers: JokerTypes[]
+  activeJoker: null | JokerTypes
+  isDone: boolean
 }
