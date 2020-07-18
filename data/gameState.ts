@@ -20,7 +20,7 @@ export const testGameState: GameData = {
       name: 'Ceddy',
       score: 999,
       jokers: [JokerTypes.spy, JokerTypes.spy, JokerTypes.hint, JokerTypes.x3],
-      activeJoker: null,
+      activeJoker: JokerTypes.spy,
       answer: 'Lol.',
       isDone: false,
     },

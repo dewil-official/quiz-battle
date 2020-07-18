@@ -88,6 +88,7 @@ export default class Game {
       this.authUtils.userStore.users[userIndex].gameData.isDone = false
     })
     // 2. Forward the game to questionResults stage.
+    this.gameState.gameInfo.questionResults = questionResults
     this.gameState.gameInfo.gameStage = GameStage.questionResults
     this.gameState.question.showAnswer = true
   }

@@ -1,9 +1,32 @@
 <template>
-  <v-container>Question Results.</v-container>
+  <v-row justify="center" align="center">
+    <v-col cols="12" sm="10" md="8">
+      <v-card class="pa-8" elevation="12">
+        <v-col>
+          <h2>The Results</h2>
+          <v-subheader>The admin will reveal the answers one by one.</v-subheader>
+          <PlayerList
+            :players="gameData.players"
+            :gameInfo="gameData.gameInfo.questionResults"
+            questionResultsMode
+          />
+        </v-col>
+      </v-card>
+    </v-col>
+  </v-row>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
-@Component
-export default class QuestionResults extends Vue {}
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import PlayerList from '../shared/PlayerList.vue'
+import { GameData } from '~/types/interfaces/game/gameUpdate'
+
+@Component({
+  components: {
+    PlayerList,
+  },
+})
+export default class QuestionResults extends Vue {
+  @Prop({ default: null }) gameData!: GameData | null
+}
 </script>

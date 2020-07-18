@@ -10,7 +10,7 @@
           <v-list-item-title v-text="player.name"></v-list-item-title>
         </v-list-item-content>
 
-        <v-list-item-content v-if="answerMode">
+        <v-list-item-content v-if="answerMode || questionResultsMode">
           <v-list-item-title style="white-space: normal;" v-text="player.answer"></v-list-item-title>
           <v-list-item-subtitle>
             <span class="mr-4">{{ player.name }}</span>
@@ -43,6 +43,10 @@
         <v-list-item-icon v-if="answerMode">
           <v-icon v-if="player.isDone" color="light-green darken-2">mdi-check-bold</v-icon>
         </v-list-item-icon>
+
+        <v-list-item-icon v-if="questionResultsMode">
+          <v-icon v-if="isPlayerCorrect(player.name)">mdi-check-bold</v-icon>
+        </v-list-item-icon>
       </v-list-item>
       <v-divider class="mx-3" v-if="playerIndex < players.length - 1" />
     </div>
@@ -53,13 +57,33 @@
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import PlayerInfo from '~/types/interfaces/game/playerInfo'
 import { JokerTypes } from '~/types/enums/game/jokerTypes'
+import GameInfo from '~/types/interfaces/game/gameInfo'
 
 @Component
 export default class PlayerList extends Vue {
   @Prop({ default: [] }) players!: PlayerInfo[]
+  @Prop({ default: [] }) gameInfo!: GameInfo | null
 
   @Prop({ default: false, type: Boolean }) answerMode!: boolean
   @Prop({ default: false, type: Boolean }) joinMode!: boolean
+  @Prop({ default: false, type: Boolean }) questionResultsMode!: boolean
+
+  getResultOfPlayer(name: string) {
+    if (this.gameInfo && this.gameInfo.questionResults) {
+      return this.gameInfo.questionResults.find((player) => {
+        player.name == name
+      })
+    }
+  }
+
+  isPlayerCorrect(name: string): boolean | null {
+    let playerResults = this.getResultOfPlayer(name)
+    if (playerResults) {
+      return playerResults.isCorrect ? true : false
+    } else {
+      return false
+    }
+  }
 
   getNameAbbreviation(name: string | undefined): string {
     if (name === undefined) return ''
