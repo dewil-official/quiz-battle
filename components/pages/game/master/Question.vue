@@ -33,7 +33,7 @@
           </v-list>
         </v-card>
         <v-card class="ma-4 mt-8 py-4" elevation="12">
-          <v-row class="mx-4" align="center">
+          <!-- <v-row class="mx-4" align="center">
             <v-btn small @click="lastQuestion">Back</v-btn>
             <v-spacer></v-spacer>
             <v-chip
@@ -41,7 +41,8 @@
             >{{ gameData.gameInfo.questionNr + 1 }} / {{ gameData.gameInfo.questionCount }}</v-chip>
             <v-spacer></v-spacer>
             <v-btn small @click="continueGame">Continue</v-btn>
-          </v-row>
+          </v-row>-->
+          <GameControlBar :gameInfo="gameData.gameInfo" />
         </v-card>
       </v-col>
       <v-col cols="12" md="6" class="pa-0">
@@ -64,11 +65,13 @@ import {
 import PlayerList from '../shared/PlayerList.vue'
 import QuestionCard from '../shared/QuestionCard.vue'
 import { GameData } from '~/types/interfaces/game/gameUpdate'
+import GameControlBar from '~/components/pages/game/master/utils/GameControlBar.vue'
 
 @Component({
   components: {
     PlayerList,
     QuestionCard,
+    GameControlBar,
   },
 })
 export default class Question extends Vue {
@@ -80,24 +83,12 @@ export default class Question extends Vue {
     return this.gameData!.question
   }
 
-  get authToken(): string {
-    return this.$store.state.auth.token
-  }
-
   get hasChoices(): boolean {
     if (((this.gameData!.question as unknown) as ChoiceQuestion).choices) {
       return true
     } else {
       return false
     }
-  }
-
-  lastQuestion() {
-    this.$socket.client.emit('last_question', this.authToken)
-  }
-
-  continueGame() {
-    this.$socket.client.emit('next_question', this.authToken)
   }
 }
 </script>

@@ -6,7 +6,7 @@
           <h1>Waiting for Players...</h1>
           <h5 color="grey--text">Connected:</h5>
           <PlayerList :players="gameState.players" joinMode />
-          <v-btn block color="primary">Start Game</v-btn>
+          <v-btn @click="startGame()" block color="primary">Start Game</v-btn>
         </v-col>
       </v-card>
     </v-col>
@@ -26,6 +26,14 @@ import PlayerList from '../shared/PlayerList.vue'
 export default class Waiting extends Vue {
   get gameState() {
     return this.$store.state.game.gameData
+  }
+
+  get authToken(): string {
+    return this.$store.state.auth.token
+  }
+
+  startGame() {
+    this.$socket.client.emit('start_game', this.authToken)
   }
 }
 </script>

@@ -34,6 +34,11 @@ export default class Game {
     return gameUpdate
   }
 
+  startGame() {
+    if (this.gameState.gameInfo.gameStage != GameStage.waiting) return
+    this.gameState.gameInfo.gameStage = GameStage.question
+  }
+
   lastQuestion() {
     if (this.gameState.gameInfo.questionNr > 0) {
       this.gameState.gameInfo.questionNr--

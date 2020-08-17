@@ -34,6 +34,13 @@ export default class GameIO {
       } catch (e) {}
     })
 
+    socket.on('start_game', (token) => {
+      if (this.authUtils.isAdmin(token)) {
+        this.game.startGame()
+        this.sendGameUpdate(UpdateTarget.everybody)
+      }
+    })
+
     socket.on('last_question', (token) => {
       if (this.authUtils.isAdmin(token)) {
         this.game.lastQuestion()

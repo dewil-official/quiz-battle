@@ -62,7 +62,7 @@ import GameInfo from '~/types/interfaces/game/gameInfo'
 @Component
 export default class PlayerList extends Vue {
   @Prop({ default: [] }) players!: PlayerInfo[]
-  @Prop({ default: [] }) gameInfo!: GameInfo | null
+  @Prop({ default: null }) gameInfo!: GameInfo | null
 
   @Prop({ default: false, type: Boolean }) answerMode!: boolean
   @Prop({ default: false, type: Boolean }) joinMode!: boolean

@@ -5,7 +5,7 @@ import { JokerTypes } from '../types/enums/game/jokerTypes'
 
 export const testGameState: GameData = {
   gameInfo: {
-    gameStage: GameStage.answerEvaluation,
+    gameStage: GameStage.waiting,
     questionCount: 0,
     questionNr: 0,
   },
