@@ -56,6 +56,31 @@ export default class Game {
     }
   }
 
+  lastQuestionStage() {
+    // Opposite of nextQuestionStage
+  }
+
+  nextQuestionStage() {
+    console.log('Executed nextQuestionStage()')
+    let stage = this.gameState.gameInfo.gameStage
+    // Forward Stage
+    if (stage == GameStage.waiting) {
+      this.gameState.gameInfo.gameStage = GameStage.question
+    } else if (stage == GameStage.question) {
+      this.gameState.gameInfo.gameStage = GameStage.answerEvaluation
+    } else if (stage == GameStage.answerEvaluation) {
+      this.gameState.gameInfo.gameStage = GameStage.questionResults
+    } else if (stage == GameStage.questionResults) {
+      // If possible to forward a question
+      if (this.gameState.gameInfo.questionNr < this.questionDB.length - 1) {
+        this.gameState.gameInfo.gameStage = GameStage.question
+        this.nextQuestion()
+      } else {
+        this.gameState.gameInfo.gameStage = GameStage.end
+      }
+    }
+  }
+
   applyQuestionResults(approvals: ApprovedAnswers) {
     // 1. Convert 'approvals' to 'questionResults' in GameInfo.
     //   - for each user: save the old store.

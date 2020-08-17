@@ -55,6 +55,20 @@ export default class GameIO {
       }
     })
 
+    socket.on('last_stage', (token) => {
+      if (this.authUtils.isAdmin(token)) {
+        this.game.lastQuestionStage()
+        this.sendGameUpdate(UpdateTarget.everybody)
+      }
+    })
+
+    socket.on('next_stage', (token) => {
+      if (this.authUtils.isAdmin(token)) {
+        this.game.nextQuestionStage()
+        this.sendGameUpdate(UpdateTarget.everybody)
+      }
+    })
+
     socket.on(
       'approve_answers',
       (authToken: string, approvals: ApprovedAnswers) => {

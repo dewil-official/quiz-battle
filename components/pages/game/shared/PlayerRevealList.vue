@@ -104,6 +104,7 @@ export default class PlayerList extends Vue {
       })
     }
     this.$socket.client.emit('revealed_answers', reveals)
+    this.$emit('onReveal', reveals)
   }
 }
 </script>
