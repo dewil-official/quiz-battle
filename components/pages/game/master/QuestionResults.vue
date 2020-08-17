@@ -5,11 +5,7 @@
         <v-col>
           <h2>The Results</h2>
           <v-subheader>The admin will reveal the answers one by one.</v-subheader>
-          <PlayerList
-            :players="gameData.players"
-            :gameInfo="gameData.gameInfo.questionResults"
-            questionResultsMode
-          />
+          <PlayerRevealList :players="gameData.players" :gameInfo="gameData.gameInfo" isMaster />
         </v-col>
       </v-card>
     </v-col>
@@ -18,12 +14,12 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
-import PlayerList from '../shared/PlayerList.vue'
+import PlayerRevealList from '../shared/PlayerRevealList.vue'
 import { GameData } from '~/types/interfaces/game/gameUpdate'
 
 @Component({
   components: {
-    PlayerList,
+    PlayerRevealList,
   },
 })
 export default class QuestionResults extends Vue {
