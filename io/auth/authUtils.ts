@@ -11,7 +11,6 @@ export default class AuthUtils {
   }
 
   loginUser(loginData: LoginData) {
-    console.log('Logging in user', loginData.name)
     let user = this.userStore.getUserByName(loginData.name)
     if (user.authData.password == loginData.password) {
       let usedTokens = getActiveTokens(this.userStore.users)
@@ -46,7 +45,6 @@ export default class AuthUtils {
     this.userStore.users.forEach((user) => {
       if (user.connectionData.socketId == socketId) {
         user.connectionData.socketId = null
-        console.log('Removed socketId from user', user.authData.name)
       }
     })
   }
@@ -54,7 +52,6 @@ export default class AuthUtils {
     this.userStore.users.forEach((user) => {
       if (user.authData.token == token) {
         user.connectionData.socketId = socketId
-        console.log('Added socketId to user', user.authData.name)
       }
     })
   }

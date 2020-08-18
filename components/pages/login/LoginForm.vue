@@ -62,7 +62,6 @@ export default class LoginForm extends Vue {
 
   loginButton() {
     if (this.userSelect != undefined && this.userSelect > -1) {
-      console.log('Passed if-clause')
       let loginData: LoginData = {
         name: this.userNames[this.userSelect],
         password: this.passwordField,

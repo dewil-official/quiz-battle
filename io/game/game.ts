@@ -61,7 +61,6 @@ export default class Game {
   }
 
   nextQuestionStage() {
-    console.log('Executed nextQuestionStage()')
     let stage = this.gameState.gameInfo.gameStage
     // Forward Stage
     if (stage == GameStage.waiting) {
@@ -87,7 +86,6 @@ export default class Game {
     //   - for each user: calc the score, and apply it.
     let questionResults: QuestionResults = []
     approvals.forEach((userApproval: AnswerApproval) => {
-      console.log('Seaching for user:', userApproval.name)
       let user = this.authUtils.userStore.getUserByName(userApproval.name)
       questionResults.push({
         name: userApproval.name,

@@ -16,8 +16,6 @@ export default class PlayersIO {
           return user.authData.name
         })
 
-        console.log(userNames)
-
         socket.emit('player_names', userNames)
       } catch (e) {
         throw Error('PlayersIO: There was an error getting the UserNames')
