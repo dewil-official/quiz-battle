@@ -56,7 +56,7 @@ import {
 import PlayerList from '../shared/PlayerList.vue'
 import QuestionCard from '../shared/QuestionCard.vue'
 import { GameData } from '~/types/interfaces/game/gameUpdate'
-import GameControlBar from '~/components/pages/game/master/utils/GameControlBar.vue'
+import GameControlBar from '~/components/game/master/utils/GameControlBar.vue'
 
 @Component({
   components: {

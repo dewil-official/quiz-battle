@@ -20,21 +20,17 @@ import GameState from '~/types/interfaces/game/gameState'
 import { GameData } from '~/types/interfaces/game/gameUpdate'
 import { GameStage } from '~/types/enums/game/gameStage'
 import AuthStore from '~/store/auth'
-import MasterView from '~/components/pages/game/MasterView.vue'
-import PlayerView from '~/components/pages/game/PlayerView.vue'
 import LoadingPage from '~/components/shared/LoadingPage.vue'
-import Waiting from '~/components/pages/game/master/Waiting.vue'
-import Intro from '~/components/pages/game/master/Intro.vue'
-import Question from '~/components/pages/game/master/Question.vue'
-import AnswerEvaluation from '~/components/pages/game/master/AnswerEvaluation.vue'
-import QuestionResults from '~/components/pages/game/master/QuestionResults.vue'
-import Paused from '~/components/pages/game/master/Paused.vue'
-import End from '~/components/pages/game/master/End.vue'
+import Waiting from '~/components/game/master/Waiting.vue'
+import Intro from '~/components/game/master/Intro.vue'
+import Question from '~/components/game/master/Question.vue'
+import AnswerEvaluation from '~/components/game/master/AnswerEvaluation.vue'
+import QuestionResults from '~/components/game/master/QuestionResults.vue'
+import Paused from '~/components/game/master/Paused.vue'
+import End from '~/components/game/master/End.vue'
 
 @Component({
   components: {
-    MasterView,
-    PlayerView,
     LoadingPage,
     Waiting,
     Intro,

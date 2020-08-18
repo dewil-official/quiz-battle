@@ -26,7 +26,7 @@
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import { GameData } from '~/types/interfaces/game/gameUpdate'
 import PlayerAnswerCheck from './utils/PlayerAnswerCheck.vue'
-import ApprovedAnswers from '../../../../types/interfaces/master/approvedAnswers'
+import ApprovedAnswers from '~/types/interfaces/master/approvedAnswers'
 @Component({
   components: { PlayerAnswerCheck },
 })

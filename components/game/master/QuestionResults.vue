@@ -23,8 +23,8 @@
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import PlayerRevealList from '../shared/PlayerRevealList.vue'
 import { GameData } from '~/types/interfaces/game/gameUpdate'
-import GameControlBar from '~/components/pages/game/master/utils/GameControlBar.vue'
 import RevealedAnswers from '~/types/interfaces/master/revealedAnswers'
+import GameControlBar from '~/components/game/master/utils/GameControlBar.vue'
 
 @Component({
   components: {
