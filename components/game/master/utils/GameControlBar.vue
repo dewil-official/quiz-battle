@@ -30,7 +30,7 @@
     >
       <v-icon left>mdi-chevron-left</v-icon>Back
     </v-btn>
-    <v-btn @click="nextStage()" :color="isContinueGrey ? 'grey' : 'primary'" :text="isContinueGrey">
+    <v-btn @click="nextStage()" :color="allowContinue ? 'primary' : 'grey'" :text="!allowContinue">
       {{ contextActions[context] }}
       <v-icon right v-if="context == 'continue'">mdi-chevron-right</v-icon>
       <v-icon right v-if="context == 'accept'">mdi-check-all</v-icon>
@@ -46,7 +46,7 @@ import { GameStage } from '~/types/enums/game/gameStage'
 @Component
 export default class GameControlBar extends Vue {
   @Prop() gameInfo!: GameInfo
-  @Prop({ default: false }) isContinueGrey!: boolean
+  @Prop({ default: true }) allowContinue!: boolean
 
   readonly contextActions = {
     continue: 'Continue',

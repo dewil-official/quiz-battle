@@ -12,7 +12,7 @@
             @onReveal="updateReveals"
           />
           <v-divider class="mx-3 mb-6" />
-          <GameControlBar :gameInfo="gameData.gameInfo" :isContinueGrey="isContinueGrey" />
+          <GameControlBar :gameInfo="gameData.gameInfo" :allowContinue="allowContinue" />
         </v-col>
       </v-card>
     </v-col>
@@ -23,7 +23,9 @@
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import PlayerRevealList from '../shared/PlayerRevealList.vue'
 import { GameData } from '~/types/interfaces/game/gameUpdate'
-import RevealedAnswers from '~/types/interfaces/master/revealedAnswers'
+import RevealedAnswers, {
+  AnswerReveal,
+} from '~/types/interfaces/master/revealedAnswers'
 import GameControlBar from '~/components/game/master/utils/GameControlBar.vue'
 
 @Component({
@@ -37,18 +39,15 @@ export default class QuestionResults extends Vue {
 
   reveals: RevealedAnswers = []
 
-  get isContinueGrey() {
-    // Returns true only if all players have been revealed.
-    // If not all have been revealed, open a confirm-dialog
-    // On confirm, automatically reveal all people first,
-    // which will NOT continue, only reveal the continue button
-    if (this.reveals.length < 1) return true
-    else {
-      // FIXME: Somehow this doesn't work as intended (.every and forEach didn't work)
-      let hiddenPlayer = this.reveals.indexOf(false)
-      if (hiddenPlayer === undefined) return false
-      return true
+  get allowContinue() {
+    if (this.reveals.length > 0) {
+      let isAllRevealed = true
+      this.reveals.forEach((player: AnswerReveal) => {
+        !player.isRevealed ? (isAllRevealed = false) : null
+      })
+      return isAllRevealed
     }
+    return false
   }
 
   updateReveals(reveals: RevealedAnswers) {
