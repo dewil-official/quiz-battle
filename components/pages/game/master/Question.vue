@@ -33,15 +33,6 @@
           </v-list>
         </v-card>
         <v-card class="ma-4 mt-8 py-4" elevation="12">
-          <!-- <v-row class="mx-4" align="center">
-            <v-btn small @click="lastQuestion">Back</v-btn>
-            <v-spacer></v-spacer>
-            <v-chip
-              small
-            >{{ gameData.gameInfo.questionNr + 1 }} / {{ gameData.gameInfo.questionCount }}</v-chip>
-            <v-spacer></v-spacer>
-            <v-btn small @click="continueGame">Continue</v-btn>
-          </v-row>-->
           <GameControlBar :gameInfo="gameData.gameInfo" />
         </v-card>
       </v-col>
